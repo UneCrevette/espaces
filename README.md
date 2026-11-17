@@ -5,7 +5,7 @@
 <h1 align="center">Espaces</h1>
 
 <p align="center">
-  Un carnet pour écrire, ranger et présenter ses idées, sur Mac, iPad et iPhone.<br>
+  Un carnet pour écrire, ranger et présenter ses idées, sur Mac, iPad, iPhone et PC.<br>
   Les textes sont des cartes, rangées en roue dans des espaces ; chaque carte peut devenir une présentation.
 </p>
 
@@ -16,6 +16,7 @@
 - [Ce que fait Espaces](#ce-que-fait-espaces)
 - [Installer sur Mac](#installer-sur-mac) — le plus simple, sans rien compiler
 - [Installer sur iPad et iPhone](#installer-sur-ipad-et-iphone) — avec un Mac et Xcode
+- [Installer sur PC](#installer-sur-pc-windows-linux) — Windows ou Linux, depuis le navigateur
 - [Synchroniser ses appareils](#synchroniser-ses-appareils)
 - [Travailler à deux sur une note](#travailler-à-deux-sur-une-note)
 - [Structure du projet](#structure-du-projet)
@@ -106,6 +107,24 @@ tools/installeur/build.sh
 
 Elle s'installe dans `~/Applications/Installeur Espaces.app`.
 
+## Installer sur PC (Windows, Linux)
+
+Sur PC, Espaces s'installe depuis sa page web, comme une application :
+
+1. Ouvrez **https://unecrevette.github.io/espaces/** dans **Chrome** ou **Edge**.
+2. Installez-la : menu **Fichier › Installer Espaces sur cet ordinateur…** dans Espaces, ou l'icône d'installation
+   à droite de la barre d'adresse (dans Edge : menu **⋯ › Applications › Installer Espaces**).
+3. Espaces apparaît alors dans le menu Démarrer, avec son icône, dans sa propre fenêtre. Il fonctionne aussi
+   hors connexion, et se met à jour tout seul.
+
+Vos textes restent sur votre PC, dans le navigateur (désinstaller l'app ou effacer les données du site les efface :
+pensez à **Fichier › Partager (.espace)** pour garder une copie de vos espaces). Pour échanger avec quelqu'un sur Mac, iPad ou
+iPhone, envoyez-vous un fichier `.espace` : **Partager (.espace)** d'un côté, **Ouvrir un .espace** de l'autre.
+
+Sur PC, ce qui demande le système d'Apple n'est pas disponible : synchronisation iCloud, notes partagées à deux,
+import de PDF, export HTML, notes vocales et conversion de l'écriture en texte. Tout le reste fonctionne, les feuilles
+manuscrites comprises (à la souris ou au stylet).
+
 ## Synchroniser ses appareils
 
 Dans Espaces : **Fichier › Synchroniser avec iCloud…**, puis choisissez un dossier dans iCloud Drive (le même sur chaque
@@ -135,7 +154,8 @@ Espaces/
 ├── web/                    L'app elle-même : la même page sur Mac, iPad et iPhone
 │   ├── index.html          La structure de l'interface (espaces, éditeur, lecteur, menus)
 │   ├── app.js              Toute la logique : bibliothèque, éditeur, encre, présentations, synchronisation
-│   └── styles.css          L'apparence, du Mac à l'iPhone
+│   ├── styles.css          L'apparence, du Mac à l'iPhone
+│   ├── manifest.webmanifest, sw.js, icons/   Ce qui rend la version web installable sur PC, et hors ligne
 │
 ├── native/                 L'app Mac (Swift), qui affiche la page web et lui donne accès au système
 │   ├── main.swift          Fenêtre, enregistrement, fichiers, iCloud, notes partagées, impression
@@ -160,6 +180,7 @@ Espaces/
 │
 ├── tools/installeur/       L'Installeur : une petite app Mac (SwiftUI) pour installer sur iPad et iPhone en un clic
 ├── build.sh                Construit l'app Mac dans build/Espaces.app
+├── .github/workflows/      La mise en ligne de la version web (GitHub Pages)
 ├── docs/                   Images du README
 └── LICENSE                 GPL-3.0
 ```
@@ -180,8 +201,9 @@ l'écriture, enregistrer la voix, joindre les appareils proches.
 - **Le lien direct** entre appareils proches utilise Bonjour (`_espaces._tcp`, voir `native/peer.swift`).
 - **L'écriture manuscrite** est dessinée en SVG ; la reconnaissance de l'écriture utilise Vision (Apple).
 
-On peut aussi ouvrir `web/index.html` dans un navigateur pour essayer l'app : tout fonctionne, sauf ce qui demande
-l'app native (iCloud, PDF, voix…), et la bibliothèque est alors gardée dans le navigateur.
+Dans un navigateur (la version PC), la même page tourne seule : la bibliothèque est gardée dans IndexedDB,
+`web/sw.js` garde les fichiers de l'app pour fonctionner hors ligne, et `web/manifest.webmanifest` la rend installable.
+Elle est mise en ligne sur GitHub Pages à chaque envoi par `.github/workflows/pages.yml`.
 
 ## Compiler soi-même
 

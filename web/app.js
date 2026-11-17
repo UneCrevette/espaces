@@ -49,6 +49,35 @@
   };
   const LS_KEY = 'espaces.library.v1';
   /*
+   * Dans un navigateur (sur PC, l'app installée depuis la page web), la bibliothèque vit dans IndexedDB : le stockage
+   * local plafonne à quelques Mo, ce qu'une seule image dépasse. L'ancienne copie du stockage local est reprise une fois.
+   */
+  const idb = (() => {
+    let db = null;
+    const open = () => db || (db = new Promise((ok, ko) => {
+      const r = indexedDB.open('espaces', 1);
+      r.onupgradeneeded = () => r.result.createObjectStore('kv');
+      r.onsuccess = () => ok(r.result);
+      r.onerror = () => ko(r.error);
+    }));
+    const run = (mode, f) => open().then(d => new Promise((ok, ko) => {
+      const t = d.transaction('kv', mode), q = f(t.objectStore('kv'));
+      t.oncomplete = () => ok(q.result);
+      t.onerror = t.onabort = () => ko(t.error);
+    }));
+    return { get: k => run('readonly', st => st.get(k)), set: (k, v) => run('readwrite', st => st.put(v, k)) };
+  })();
+  // le navigateur ne vide pas la bibliothèque de lui-même quand le disque se remplit
+  if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
+  async function browserLoad() {
+    try { const v = await idb.get(LS_KEY); if (v) return v; } catch (e) { console.error(e); }
+    return localStorage.getItem(LS_KEY);
+  }
+  async function browserSave(data) {
+    try { await idb.set(LS_KEY, data); } catch (e) { localStorage.setItem(LS_KEY, data); return; }
+    try { localStorage.removeItem(LS_KEY); } catch (e) { /* tant pis */ }
+  }
+  /*
    * Version de l'app, et numéro du format des données. Chaque changement de structure ajoute une migration :
    * une bibliothèque ou un .espace plus ancien est remis à niveau à l'ouverture ; un plus récent s'ouvre
    * tel quel (ce que cette version ne connaît pas est conservé, simplement pas affiché).
@@ -90,7 +119,7 @@
       return { spaces, current: EXPORT.root || spaces[0].id };
     }
     let raw = null;
-    try { raw = NATIVE ? await call('load') : localStorage.getItem(LS_KEY); } catch (e) { console.error(e); }
+    try { raw = NATIVE ? await call('load') : await browserLoad(); } catch (e) { console.error(e); }
     try {
       const s = raw ? JSON.parse(raw) : null;
       if (s && Array.isArray(s.spaces)) return migrate(s);
@@ -142,7 +171,7 @@
       diag('save: ' + data.length + ' vue=' + view);
       try {
         if (NATIVE) await sendBig('save', data);
-        else localStorage.setItem(LS_KEY, data);
+        else await browserSave(data);
         if (onSaved) onSaved();
         scheduleSync();
         schedulePeer();
@@ -2200,6 +2229,7 @@
         if (a === 'sub') promptSubSpace();
         if (a === 'newSpace') promptNewSpace();
         if (a === 'sync') toggleSync();
+        if (a === 'install') installApp();
       });
     }
 
@@ -14954,6 +14984,26 @@ void main(){
   window.__openEspace = text => appReady.then(() => importEspaceText(text));
   window.__menu = cmd => appReady.then(() => { if (READONLY) return; if (cmd === 'open') openEspaceFile(); if (cmd === 'share') exportEspaceFile(); });
 
+  /*
+   * Dans un navigateur (Chrome, Edge… sur PC) : Espaces s'installe comme une app, avec son icône, et marche hors ligne.
+   * L'entrée « Installer Espaces sur cet ordinateur… » du menu Fichier n'apparaît que quand le navigateur le permet.
+   */
+  let installPrompt = null;
+  function bindInstall() {
+    if (bridge || READONLY || !location.protocol.startsWith('http')) return;
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(e => console.error(e));
+    const item = $('#filePop [data-action="install"]');
+    addEventListener('beforeinstallprompt', e => { e.preventDefault(); installPrompt = e; item.hidden = false; });
+    addEventListener('appinstalled', () => { installPrompt = null; item.hidden = true; toast('Espaces est installé : il est dans vos applications'); });
+  }
+  async function installApp() {
+    if (!installPrompt) return toast('Pour installer : menu du navigateur › Installer Espaces (ou l’icône à droite de la barre d’adresse)');
+    installPrompt.prompt();
+    await installPrompt.userChoice.catch(() => null);
+    installPrompt = null;
+    $('#filePop [data-action="install"]').hidden = true;
+  }
+
   async function boot() {
     document.body.classList.toggle('native', NATIVE);
     document.body.classList.toggle('readonly', READONLY);
@@ -14980,6 +15030,7 @@ void main(){
     bindSpell();
     bindInk();
     bindVoice();
+    bindInstall();
     bindQuick();
     bindSound();
     bindKeys();
