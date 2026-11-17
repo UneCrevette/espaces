@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>CFBundleName</key><string>Espaces</string>
+  <key>CFBundleDisplayName</key><string>Espaces</string>
+  <key>CFBundleIdentifier</key><string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+  <key>CFBundleExecutable</key><string>$(EXECUTABLE_NAME)</string>
+  <key>CFBundlePackageType</key><string>APPL</string>
+  <key>CFBundleShortVersionString</key><string>$(MARKETING_VERSION)</string>
+  <key>CFBundleVersion</key><string>$(CURRENT_PROJECT_VERSION)</string>
+  <key>CFBundleDevelopmentRegion</key><string>fr</string>
+  <key>CFBundleInfoDictionaryVersion</key><string>6.0</string>
+  <key>LSRequiresIPhoneOS</key><true/>
+  <!-- plein écran, toutes orientations ; l'écran de lancement est simplement blanc -->
+  <key>UIRequiresFullScreen</key><true/>
+  <key>UILaunchScreen</key><dict><key>UIColorName</key><string></string></dict>
+  <key>UIStatusBarHidden</key><true/>
+  <key>UIViewControllerBasedStatusBarAppearance</key><true/>
+  <key>NSMicrophoneUsageDescription</key><string>Espaces enregistre vos notes vocales.</string>
+  <key>NSCameraUsageDescription</key><string>Espaces prend une photo à joindre à votre note.</string>
+  <key>NSLocationWhenInUseUsageDescription</key><string>Espaces note le lieu où vous prenez une note rapide, pour vous en rappeler le contexte.</string>
+  <key>UISupportedInterfaceOrientations</key>
+  <array><string>UIInterfaceOrientationPortrait</string></array>
+  <key>UISupportedInterfaceOrientations~ipad</key>
+  <array>
+    <string>UIInterfaceOrientationPortrait</string>
+    <string>UIInterfaceOrientationPortraitUpsideDown</string>
+    <string>UIInterfaceOrientationLandscapeLeft</string>
+    <string>UIInterfaceOrientationLandscapeRight</string>
+  </array>
+  <!-- la bibliothèque (Documents) est visible dans l'app Fichiers : une copie de secours toujours à portée -->
+  <key>UIFileSharingEnabled</key><true/>
+  <!-- le lien direct avec le Mac, sur le même Wi-Fi -->
+  <key>NSLocalNetworkUsageDescription</key><string>Espaces échange vos espaces iCloud en direct avec votre Mac sur le même réseau.</string>
+  <key>NSBonjourServices</key><array><string>_espaces._tcp</string></array>
+  <key>LSSupportsOpeningDocumentsInPlace</key><false/>
+  <!-- le fichier .espace : un espace partagé, qui s'ouvre dans l'app -->
+  <key>UTExportedTypeDeclarations</key>
+  <array>
+    <dict>
+      <key>UTTypeIdentifier</key><string>app.espaces.space</string>
+      <key>UTTypeDescription</key><string>Espace</string>
+      <key>UTTypeConformsTo</key><array><string>public.data</string><string>public.content</string></array>
+      <key>UTTypeTagSpecification</key>
+      <dict><key>public.filename-extension</key><array><string>espace</string></array></dict>
+    </dict>
+  </array>
+  <key>CFBundleDocumentTypes</key>
+  <array>
+    <dict>
+      <key>CFBundleTypeName</key><string>Espace</string>
+      <key>CFBundleTypeRole</key><string>Editor</string>
+      <key>LSHandlerRank</key><string>Owner</string>
+      <key>LSItemContentTypes</key><array><string>app.espaces.space</string></array>
+    </dict>
+  </array>
+</dict>
+</plist>

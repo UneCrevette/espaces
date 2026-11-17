@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Espaces</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Accueil : aucun espace encore -->
+<section id="welcome" hidden>
+  <div class="w-ring" id="welcomeRing"></div>
+  <div class="w-inner">
+    <h1>Écrivez votre<br>premier texte.</h1>
+    <p>Donnez un nom à votre premier espace</p>
+    <form id="welcomeForm" autocomplete="off">
+      <input id="welcomeName" placeholder="Nom de votre premier espace" maxlength="60">
+      <div class="w-actions">
+        <button class="btn" type="submit">Commencer à écrire →</button>
+        <button class="btn ghost" type="button" id="welcomePdf">Importer un PDF</button>
+        <button class="btn ghost" type="button" data-action="openEspace">Ouvrir un .espace</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- Note rapide : l'accueil de l'app sur iPhone -->
+<section id="quick" hidden>
+  <header class="qk-head"><h1>Note rapide</h1><button id="qkMenu" aria-label="Réglages"></button></header>
+  <div class="qk-list" id="qkList"></div>
+  <div class="qk-compose">
+    <div class="qk-draft" id="qkDraft" hidden></div>
+    <div class="qk-row">
+      <textarea id="qkText" rows="1" placeholder="Une idée, vite…"></textarea>
+      <button id="qkVoice" aria-label="Maintenir pour parler"></button>
+      <button id="qkSend" aria-label="Enregistrer la note"></button>
+    </div>
+    <div class="qk-tools">
+      <button id="qkPhoto"></button><button id="qkImage"></button>
+    </div>
+  </div>
+</section>
+
+<!-- L'iPhone : tant qu'iCloud n'est pas connecté -->
+<div id="cloudHint" hidden><span><b>Retrouvez vos espaces</b>Choisissez iCloud Drive › Espaces</span><button>Connecter iCloud</button></div>
+
+<!-- L'iPhone : deux onglets -->
+<nav id="phoneNav">
+  <button data-go="quick">Note rapide</button>
+  <button data-go="spaces">Espaces</button>
+</nav>
+
+<!-- La roue : les textes d'un espace, ou tous les espaces -->
+<section id="space" hidden>
+  <div class="spot"></div>
+  <div class="shade"></div>
+  <div class="stage" id="stage"><div class="ring" id="ring"></div></div>
+
+  <div class="mode-switch" id="modeSwitch" title="Éditer l’espace, ou le lire comme vos lecteurs">
+    <button data-mode="edit" class="on">Éditeur</button>
+    <button data-mode="read">Lecteur</button>
+  </div>
+
+  <div class="constellation" id="constel" hidden></div>
+
+  <nav class="actions">
+    <button class="btn ghost search-btn" id="searchBtn" title="Rechercher (⌘K)">Rechercher <kbd>⌘K</kbd></button>
+    <!-- importer, exporter, partager : regroupés dans un seul menu -->
+    <div class="act-menu" data-ctx="space">
+      <button class="btn ghost" id="fileBtn" aria-haspopup="menu" aria-expanded="false">Fichier <span class="act-chev">▾</span></button>
+      <div class="act-pop" id="filePop" role="menu" hidden>
+        <button role="menuitem" data-action="pdf">Importer un PDF</button>
+        <button role="menuitem" data-action="export">Exporter en HTML</button>
+        <i></i>
+        <button role="menuitem" data-action="share">Partager (.espace)</button>
+        <button role="menuitem" data-action="openEspace">Ouvrir un .espace</button>
+        <button role="menuitem" data-action="joinShare">Rejoindre une note partagée…</button>
+        <i></i>
+        <button role="menuitem" data-action="sync" hidden>Synchroniser avec iCloud…</button>
+      </div>
+    </div>
+    <button class="btn ghost" data-action="openEspace" data-ctx="all" title="Ouvrir un espace reçu (.espace)">Ouvrir un .espace</button>
+    <button class="btn ghost" data-action="sub" data-ctx="space">+ Sous-espace</button>
+    <button class="btn" data-action="new" data-ctx="space">+ Nouveau texte</button>
+    <button class="btn" data-action="newSpace" data-ctx="all">+ Nouvel espace</button>
+  </nav>
+
+  <div class="empty-cta" id="emptyCta" hidden>
+    <p>Cet espace est encore vide.</p>
+    <button class="btn" data-action="new">Écrire le premier texte</button>
+  </div>
+
+  <div class="sound">
+    <button class="sound-btn" id="soundBtn" title="Son"><span class="bars"><i></i><i></i><i></i><i></i></span>Son</button>
+    <div class="sound-pop" id="soundPop" hidden>
+      <label class="sw"><span>Musique d’ambiance</span><input type="checkbox" id="sndMusic"><i></i></label>
+      <label class="sw"><span>Effets sonores<small>Roue, cartes, transitions</small></span><input type="checkbox" id="sndSfx"><i></i></label>
+      <label class="sw"><span>Son spatialisé<small>Les sons viennent de là où l’on agit</small></span><input type="checkbox" id="sndSpatial"><i></i></label>
+      <label class="vol"><span>Volume</span><input type="range" id="sndVol" min="0" max="100"></label>
+    </div>
+  </div>
+
+  <div class="space-meta">
+    <div class="space-sub">
+      <button class="nav" id="prevSpace" title="Espace précédent (↑)">‹</button>
+      <button class="nav" id="nextSpace" title="Espace suivant (↓)">›</button>
+      <span class="crumbs" id="crumbs"></span>
+      <span id="spaceCount"></span>
+      <button class="link" id="renameSpace">Renommer</button>
+      <button class="link color-btn" id="spaceColor">Couleur</button>
+      <button class="link del" id="delSpace">Supprimer l'espace</button>
+    </div>
+    <h1 id="spaceTitle" title="Double-cliquez pour renommer"></h1>
+  </div>
+
+</section>
+
+<!-- Éditeur / lecteur, posé au-dessus de la roue -->
+<section id="editor" hidden>
+  <div class="sheet">
+    <header class="ed-bar">
+      <button class="ed-back" id="edBack">← <span id="edSpaceName"></span></button>
+      <label class="ed-move"><span class="ed-move-k">Espace</span>
+        <select id="edMove"></select>
+      </label>
+      <div class="ed-status" id="edStatus"></div>
+      <div class="ed-right">
+        <button class="btn ghost ed-icon" id="edUndo" title="Annuler" aria-label="Annuler"><svg viewBox="0 0 20 20"><path d="M7.5 4.5 4 8l3.5 3.5M4 8h8a4 4 0 0 1 0 8H9"/></svg></button>
+        <button class="btn ghost ed-icon" id="edRedo" title="Rétablir" aria-label="Rétablir"><svg viewBox="0 0 20 20"><path d="M12.5 4.5 16 8l-3.5 3.5M16 8H8a4 4 0 0 0 0 8h3"/></svg></button>
+        <button class="btn ghost ed-icon" id="edScene" aria-label="Mise en scène"></button>
+        <button class="btn ghost ed-icon" id="edLook" aria-label="Personnaliser la carte"></button>
+        <button class="btn ghost ed-icon" id="edHistory" title="Versions de la page" aria-label="Versions de la page"><svg viewBox="0 0 20 20"><path d="M3.5 10a6.5 6.5 0 1 0 1.9-4.6M3.5 3.5v3.2h3.2M10 6.5V10l2.4 1.6"/></svg></button>
+        <button class="btn ghost ed-icon" id="edExport" title="Exporter la page (PDF, Word, Pages)" aria-label="Exporter la page"><svg viewBox="0 0 20 20"><path d="M10 3.5v9M6.5 7 10 3.5 13.5 7M4.5 11.5v3.8q0 1.2 1.2 1.2h8.6q1.2 0 1.2-1.2v-3.8"/></svg></button>
+        <button class="btn ghost danger" id="edDelete">Supprimer</button>
+      </div>
+    </header>
+    <div class="toolbar" id="toolbar">
+      <select id="tbBlock" title="Style de paragraphe">
+        <option value="p">Texte</option>
+        <option value="h1">Titre</option>
+        <option value="h2">Sous-titre</option>
+        <option value="h3">Intertitre</option>
+        <option value="blockquote">Citation</option>
+        <option value="pre">Code</option>
+      </select>
+      <span class="sep"></span>
+      <button data-cmd="bold" title="Gras (⌘B)"><b>B</b></button>
+      <button data-cmd="italic" title="Italique (⌘I)"><i>I</i></button>
+      <button data-cmd="underline" title="Souligné (⌘U)"><u>U</u></button>
+      <button data-cmd="strikeThrough" title="Barré"><s>S</s></button>
+      <button data-cmd="accent" title="Couleur du texte et surlignage"><span class="accent-dot">A<i id="accentBar"></i></span></button>
+      <span class="sep"></span>
+      <button data-cmd="insertUnorderedList" title="Liste à puces"><svg viewBox="0 0 20 20"><circle cx="4" cy="5" r="1.5"/><circle cx="4" cy="10" r="1.5"/><circle cx="4" cy="15" r="1.5"/><path d="M8 5h9M8 10h9M8 15h9"/></svg></button>
+      <button data-cmd="insertOrderedList" title="Liste numérotée"><svg viewBox="0 0 20 20"><path d="M8 5h9M8 10h9M8 15h9"/><text x="1.5" y="7" font-size="6">1</text><text x="1.5" y="12" font-size="6">2</text><text x="1.5" y="17" font-size="6">3</text></svg></button>
+      <span class="sep"></span>
+      <button data-cmd="justifyLeft" title="Aligner à gauche"><svg viewBox="0 0 20 20"><path d="M3 5h14M3 10h9M3 15h12"/></svg></button>
+      <button data-cmd="justifyCenter" title="Centrer"><svg viewBox="0 0 20 20"><path d="M3 5h14M5.5 10h9M4 15h12"/></svg></button>
+      <button data-cmd="justifyRight" title="Aligner à droite"><svg viewBox="0 0 20 20"><path d="M3 5h14M8 10h9M5 15h12"/></svg></button>
+      <span class="sep"></span>
+      <button data-cmd="link" title="Lien (⌘K)"><svg viewBox="0 0 20 20"><path d="M8.5 11.5a3 3 0 0 0 4.2 0l2.6-2.6a3 3 0 0 0-4.2-4.2L10 5.8M11.5 8.5a3 3 0 0 0-4.2 0l-2.6 2.6a3 3 0 0 0 4.2 4.2L10 14.2"/></svg></button>
+      <button data-cmd="image" title="Image"><svg viewBox="0 0 20 20"><rect x="2.5" y="4" width="15" height="12" rx="1.5"/><circle cx="7" cy="8.5" r="1.4"/><path d="M3 14l4.5-4 3.5 3 2.5-2 4 3.5"/></svg></button>
+      <button data-cmd="pdf" title="Insérer les pages d'un PDF"><span class="tb-txt">PDF</span></button>
+      <button data-cmd="table" title="Tableau"><svg viewBox="0 0 20 20"><rect x="2.5" y="4" width="15" height="12" rx="1.5"/><path d="M2.5 8h15M2.5 12h15M7.5 8v8M12.5 8v8"/></svg></button>
+      <button data-cmd="chart" title="Graphique"><svg viewBox="0 0 20 20"><path d="M3.5 16.5h13M6 13.5V10M10 13.5V4.5M14 13.5V7.5"/></svg></button>
+      <button data-cmd="insertHorizontalRule" title="Séparateur"><svg viewBox="0 0 20 20"><path d="M2 10h16"/></svg></button>
+      <span class="sep"></span>
+      <button data-cmd="removeFormat" title="Effacer la mise en forme"><svg viewBox="0 0 20 20"><path d="M5 5h10M10 5l-3 11M4 16h6M13 12l4 4M17 12l-4 4"/></svg></button>
+      <button id="tbSpell" aria-label="Masquer les fautes"><svg viewBox="0 0 20 20"><path d="M4.5 7.5l3.2 3.2 7.8-7.4"/><path d="M3 15.5q1.75-2.6 3.5 0t3.5 0 3.5 0 3.5 0"/></svg></button>
+      <button id="tbMore" title="Plus d’options" aria-label="Plus d’options"><svg viewBox="0 0 20 20"><circle cx="5" cy="10" r="1.5"/><circle cx="10" cy="10" r="1.5"/><circle cx="15" cy="10" r="1.5"/></svg></button>
+    </div>
+    <div class="ed-scroll" id="edScroll">
+      <article class="page">
+        <div id="edTitle" contenteditable="plaintext-only" data-placeholder="Titre" spellcheck="false"></div>
+        <div id="edBody" class="prose" contenteditable="true" spellcheck="false" data-placeholder="Écrivez, ou tapez « / » pour ajouter un bloc"></div>
+      </article>
+    </div>
+  </div>
+  <div class="popover" id="linkPop" hidden>
+    <input id="linkInput" placeholder="https://…">
+    <button class="btn" id="linkOk">OK</button>
+    <button class="btn ghost" id="linkOpen">Ouvrir</button>
+    <button class="btn ghost" id="linkRemove">Retirer</button>
+  </div>
+  <div class="slash-menu" id="slashMenu" hidden></div>
+  <div class="icon-pop" id="iconPop" hidden>
+    <div class="ip-tabs"><button data-tab="glyph" class="on">Glyphes</button><button data-tab="emoji">Émojis</button></div>
+    <div class="ip-grid" id="ipGrid"></div>
+    <div class="ip-more" id="ipMore" hidden>
+      <input id="ipInput" placeholder="Tapez ou collez un émoji">
+      <button class="btn ghost" id="ipPalette">Tous les émojis…</button>
+    </div>
+  </div>
+  <!-- Mise en scène : régler la présentation choisie, passage par passage -->
+  <div class="scene versions" id="versions" hidden>
+    <header class="sc-bar">
+      <button class="ed-back" id="vsBack">← Texte</button>
+      <div class="sc-title">Versions</div>
+      <span class="sc-sp"></span>
+    </header>
+    <div class="vs-body">
+      <aside class="sc-left vs-left"><div class="sc-h"><span>Historique</span></div><div class="vs-list" id="vsList"></div></aside>
+      <main class="vs-main"><div class="vs-actions" id="vsActions"></div><div class="vs-preview" id="vsPreview"></div></main>
+    </div>
+  </div>
+  <div class="scene" id="scene" hidden>
+    <header class="sc-bar">
+      <button class="ed-back" id="scBack">← Texte</button>
+      <div class="sc-title">Mise en scène</div>
+      <button class="sc-present" id="scPresent" title="Présentation, ambiance et accès de la page"></button>
+      <span class="sc-sp"></span>
+      <button class="btn ghost" id="scPdf" title="Exporter le diaporama en PDF">PDF</button>
+      <button class="btn" id="scPreview">Aperçu ▶</button>
+    </header>
+    <div class="sc-body">
+      <aside class="sc-left">
+        <div class="sc-h"><span>Découpage</span><button class="pp-link" id="scReset" title="Revenir au découpage automatique">Automatique</button></div>
+        <div class="sc-blocks" id="scBlocks"></div>
+      </aside>
+      <main class="sc-center" id="scCenter"></main>
+      <aside class="sc-right" id="scInspector"></aside>
+    </div>
+  </div>
+  <div class="img-tools" id="imgTools" hidden>
+    <button data-size="s">Petite</button>
+    <button data-size="m">Moyenne</button>
+    <button data-size="l">Pleine largeur</button>
+    <button data-size="cap">Légende</button>
+    <button data-size="zoom" title="Le lecteur voit le détail sous son curseur">Loupe</button>
+    <button data-size="del" class="danger">Supprimer</button>
+  </div>
+</section>
+
+<!-- Lecteur : la page présentée comme l'auteur l'a choisi -->
+<div class="scene look-scene" id="look" hidden>
+  <header class="sc-bar">
+    <button class="ed-back" id="lkBack">← Retour</button>
+    <div class="sc-title">Personnaliser</div>
+    <span class="sc-sp"></span>
+    <button class="btn ghost" id="lkReset">Tout retirer</button>
+  </header>
+  <div class="sc-body lk-body">
+    <main class="sc-center lk-center" id="lkCenter"></main>
+    <aside class="sc-right" id="lkInspector"></aside>
+  </div>
+</div>
+<section id="reader" hidden>
+  <button class="btn ghost rd-close" id="rdClose">← Retour</button>
+  <div class="rd-stage" id="rdStage"></div>
+  <div class="rd-hint" id="rdHint"></div>
+</section>
+
+<!-- Réglage d'un bloc interactif -->
+<div class="ask ix-modal" id="ixModal" hidden>
+  <form class="ask-card ix-card" id="ixForm" autocomplete="off">
+    <div class="ix-title" id="ixTitle"></div>
+    <p class="ix-note-text" id="ixNote" hidden></p>
+    <div class="ix-fields" id="ixFields"></div>
+    <div class="ask-actions" id="ixActions"></div>
+  </form>
+</div>
+
+<!-- Demande de nom (nouvel espace, sous-espace) -->
+<div class="ask" id="ask" hidden>
+  <form class="ask-card" id="askForm" autocomplete="off">
+    <div class="ask-title" id="askTitle"></div>
+    <input id="askInput" maxlength="60">
+    <div class="ask-actions">
+      <button type="button" class="btn ghost" id="askCancel">Annuler</button>
+      <button type="submit" class="btn">Créer</button>
+    </div>
+  </form>
+</div>
+
+<!-- Recherche globale -->
+<div class="search" id="search" hidden>
+  <div class="search-card">
+    <div class="search-field">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="9" cy="9" r="5.5"/><path d="M13 13l4 4"/></svg>
+      <input id="searchInput" placeholder="Rechercher dans tous les espaces…" autocomplete="off" spellcheck="false">
+      <kbd>Échap</kbd>
+    </div>
+    <div class="search-results" id="searchResults"></div>
+    <div class="search-foot"><span><kbd>↑</kbd><kbd>↓</kbd> naviguer</span><span><kbd>↵</kbd> ouvrir</span></div>
+  </div>
+</div>
+
+<canvas class="wind" id="wind" aria-hidden="true"></canvas>
+
+<!-- Espace exporté : écran d'entrée -->
+<div class="enter" id="enter" hidden>
+  <div class="enter-inner">
+    <div class="enter-k">Un espace partagé</div>
+    <h1 id="enterTitle"></h1>
+    <button class="btn" id="enterBtn">Entrer dans l’espace</button>
+    <p>Avec le son</p>
+  </div>
+</div>
+
+<div class="grain" aria-hidden="true"></div>
+<div class="color-pop" id="colorPop" hidden></div>
+<div class="page-pop" id="pagePop" hidden></div>
+<div class="toast" id="toast" hidden></div>
+<input type="file" id="filePick" hidden>
+
+<script src="app.js"></script>
+</body>
+</html>

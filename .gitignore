@@ -1,0 +1,16 @@
+# compilations
+build/
+ios/build-ipad/
+ios/build-iphone/
+ios/DerivedData/
+*.xcuserstate
+xcuserdata/
+
+# réglages propres à chaque Mac (équipe Apple)
+ios/equipe.local
+
+# fichiers d'essai et données personnelles
+web/_*
+*.espace
+.claude/
+.DS_Store

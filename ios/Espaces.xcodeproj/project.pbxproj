@@ -1,0 +1,267 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E5A000000000000000000101 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A000000000000000000201 /* AppDelegate.swift */; };
+		E5A000000000000000000104 /* peer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A000000000000000000206 /* peer.swift */; };
+		E5A000000000000000000109 /* inktext.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A000000000000000000209 /* inktext.swift */; };
+		E5A000000000000000000110 /* spell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A000000000000000000210 /* spell.swift */; };
+		E5A00000000000000000010A /* voice.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A00000000000000000020A /* voice.swift */; };
+		E5A00000000000000000010B /* Phone.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A00000000000000000020B /* Phone.swift */; };
+		E5A000000000000000000105 /* pdfexport.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A000000000000000000207 /* pdfexport.swift */; };
+		E5A000000000000000000102 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5A000000000000000000202 /* Assets.xcassets */; };
+		E5A000000000000000000103 /* web in Resources */ = {isa = PBXBuildFile; fileRef = E5A000000000000000000203 /* web */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		E5A000000000000000000201 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E5A000000000000000000202 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E5A000000000000000000203 /* web */ = {isa = PBXFileReference; lastKnownFileType = folder; name = web; path = ../web; sourceTree = SOURCE_ROOT; };
+		E5A000000000000000000204 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E5A000000000000000000206 /* peer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = peer.swift; path = ../native/peer.swift; sourceTree = SOURCE_ROOT; };
+		E5A000000000000000000209 /* inktext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = inktext.swift; path = ../native/inktext.swift; sourceTree = SOURCE_ROOT; };
+		E5A000000000000000000210 /* spell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = spell.swift; path = ../native/spell.swift; sourceTree = SOURCE_ROOT; };
+		E5A00000000000000000020A /* voice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = voice.swift; path = ../native/voice.swift; sourceTree = SOURCE_ROOT; };
+		E5A00000000000000000020B /* Phone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Phone.swift; path = Espaces/Phone.swift; sourceTree = SOURCE_ROOT; };
+		E5A000000000000000000207 /* pdfexport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = pdfexport.swift; path = ../native/pdfexport.swift; sourceTree = SOURCE_ROOT; };
+		E5A000000000000000000205 /* Espaces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Espaces.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E5A000000000000000000301 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E5A000000000000000000401 = {
+			isa = PBXGroup;
+			children = (
+				E5A000000000000000000402 /* Espaces */,
+				E5A000000000000000000203 /* web */,
+				E5A000000000000000000403 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E5A000000000000000000402 /* Espaces */ = {
+			isa = PBXGroup;
+			children = (
+				E5A000000000000000000201 /* AppDelegate.swift */,
+				E5A000000000000000000206 /* peer.swift */,
+				E5A000000000000000000209 /* inktext.swift */,
+				E5A000000000000000000210 /* spell.swift */,
+				E5A00000000000000000020A /* voice.swift */,
+				E5A00000000000000000020B /* Phone.swift */,
+				E5A000000000000000000207 /* pdfexport.swift */,
+				E5A000000000000000000202 /* Assets.xcassets */,
+				E5A000000000000000000204 /* Info.plist */,
+			);
+			path = Espaces;
+			sourceTree = "<group>";
+		};
+		E5A000000000000000000403 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E5A000000000000000000205 /* Espaces.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E5A000000000000000000501 /* Espaces */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E5A000000000000000000702 /* Build configuration list for PBXNativeTarget "Espaces" */;
+			buildPhases = (
+				E5A000000000000000000601 /* Sources */,
+				E5A000000000000000000301 /* Frameworks */,
+				E5A000000000000000000602 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Espaces;
+			productName = Espaces;
+			productReference = E5A000000000000000000205 /* Espaces.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E5A000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					E5A000000000000000000501 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = E5A000000000000000000701 /* Build configuration list for PBXProject "Espaces" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = fr;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				fr,
+				Base,
+			);
+			mainGroup = E5A000000000000000000401;
+			productRefGroup = E5A000000000000000000403 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E5A000000000000000000501 /* Espaces */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E5A000000000000000000602 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E5A000000000000000000102 /* Assets.xcassets in Resources */,
+				E5A000000000000000000103 /* web in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E5A000000000000000000601 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E5A000000000000000000101 /* AppDelegate.swift in Sources */,
+				E5A000000000000000000104 /* peer.swift in Sources */,
+				E5A000000000000000000109 /* inktext.swift in Sources */,
+				E5A000000000000000000110 /* spell.swift in Sources */,
+				E5A00000000000000000010A /* voice.swift in Sources */,
+				E5A00000000000000000010B /* Phone.swift in Sources */,
+				E5A000000000000000000105 /* pdfexport.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		E5A000000000000000000801 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		E5A000000000000000000802 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E5A000000000000000000803 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Espaces/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.alexandretheve.espaces;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E5A000000000000000000804 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Espaces/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.2.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.alexandretheve.espaces;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E5A000000000000000000701 /* Build configuration list for PBXProject "Espaces" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E5A000000000000000000801 /* Debug */,
+				E5A000000000000000000802 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E5A000000000000000000702 /* Build configuration list for PBXNativeTarget "Espaces" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E5A000000000000000000803 /* Debug */,
+				E5A000000000000000000804 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E5A000000000000000000001 /* Project object */;
+}

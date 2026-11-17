@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>CFBundleName</key><string>Espaces</string>
+  <key>CFBundleDisplayName</key><string>Espaces</string>
+  <key>CFBundleIdentifier</key><string>app.espaces.editor</string>
+  <key>CFBundleExecutable</key><string>Espaces</string>
+  <key>CFBundleIconFile</key><string>AppIcon</string>
+  <key>CFBundlePackageType</key><string>APPL</string>
+  <key>CFBundleShortVersionString</key><string>0.2.0</string>
+  <key>CFBundleVersion</key><string>2</string>
+  <key>CFBundleDevelopmentRegion</key><string>fr</string>
+  <key>LSMinimumSystemVersion</key><string>12.0</string>
+  <key>LSApplicationCategoryType</key><string>public.app-category.productivity</string>
+  <key>NSHighResolutionCapable</key><true/>
+  <key>NSHumanReadableCopyright</key><string>Espaces</string>
+  <!-- le lien direct avec l'iPad, sur le même Wi-Fi -->
+  <key>NSMicrophoneUsageDescription</key><string>Espaces enregistre vos notes vocales.</string>
+  <key>NSLocalNetworkUsageDescription</key><string>Espaces échange vos espaces iCloud en direct avec vos autres appareils sur le même réseau.</string>
+  <key>NSBonjourServices</key><array><string>_espaces._tcp</string></array>
+  <!-- le fichier .espace : un espace partagé, qui s'ouvre d'un double-clic dans l'app -->
+  <key>UTExportedTypeDeclarations</key>
+  <array>
+    <dict>
+      <key>UTTypeIdentifier</key><string>app.espaces.space</string>
+      <key>UTTypeDescription</key><string>Espace</string>
+      <key>UTTypeConformsTo</key><array><string>public.data</string><string>public.content</string></array>
+      <key>UTTypeTagSpecification</key>
+      <dict><key>public.filename-extension</key><array><string>espace</string></array></dict>
+    </dict>
+  </array>
+  <key>CFBundleDocumentTypes</key>
+  <array>
+    <dict>
+      <key>CFBundleTypeName</key><string>Espace</string>
+      <key>CFBundleTypeRole</key><string>Editor</string>
+      <key>LSHandlerRank</key><string>Owner</string>
+      <key>LSItemContentTypes</key><array><string>app.espaces.space</string></array>
+    </dict>
+  </array>
+</dict>
+</plist>
