@@ -855,13 +855,18 @@ final class WebHostController: UIViewController, WKScriptMessageHandlerWithReply
     func buildExport(data: String) throws -> String {
         var html = try String(contentsOf: webDir.appendingPathComponent("index.html"), encoding: .utf8)
         let css = try String(contentsOf: webDir.appendingPathComponent("styles.css"), encoding: .utf8)
+        // le code est recopié dans la page : un « </script> » écrit dans ses textes y fermerait la balise trop tôt, et la
+        // page n'afficherait que du texte brut. « <\/script> » se lit pareil en JavaScript, mais plus comme une balise.
         let js = try String(contentsOf: webDir.appendingPathComponent("app.js"), encoding: .utf8)
+            .replacingOccurrences(of: "</script", with: "<\\/script", options: .caseInsensitive)
         let safeData = data.replacingOccurrences(of: "</", with: "<\\/")
         html = html.replacingOccurrences(of: "<link rel=\"stylesheet\" href=\"styles.css\">",
                                          with: "<style>\n\(css)\n</style>")
         html = html.replacingOccurrences(of: "<script src=\"app.js\"></script>",
                                          with: "<script>window.__EXPORT__ = \(safeData);</script>\n<script>\n\(js)\n</script>")
-        return html
+        // le fichier exporté vit seul : sans l'icône ni le manifeste de la version web, qui ne sont pas à côté de lui
+        let alone = ["rel=\"manifest\"", "rel=\"icon\"", "rel=\"apple-touch-icon\""]
+        return html.components(separatedBy: "\n").filter { line in !alone.contains { line.hasPrefix("<link") && line.contains($0) } }.joined(separator: "\n")
     }
 
     // MARK: - Navigation : les liens externes s'ouvrent dans Safari
